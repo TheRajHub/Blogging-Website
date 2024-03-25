@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="st.css">
+
+    <title>MyBlogs</title>
+</head>
+<body>
+    <nav>
+        <h1 >Blogs</h3>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="/edit">Write a Blog</a></li>
+        </ul>
+        
+        
+    </nav>
+    <form action="/edit" method="get">
+        <div id="welcome">
+            <h1>Welcome To The World Of Blog <span>Writting</span></h1>
+            
+            <button type="submit">Write a Blog</button>
+            
+    
+        </div>
+    </form>
+    <div id="previous">
+        <%if(locals.result){%>
+            <%for(var i=0;i<result.length;i++){%>
+                <%var da=new Date(result[i].d);%>
+                <%var year=da.getFullYear();%>
+                <%var month=da.getMonth();%>
+                <%var date=da.getDate();%>
+                <%var fd = `${date}-${month+1}-${year}`;%>
+                <%var image=(result[i].img).toString('base64') %>
+                <section class="cards"><div class="ig" style="background-image: url('data:image/*;base64,<%=image%>');" id="<%=result[i].id%>"></div><section><%=result[i].topic%></section><section class="date"><%=fd%></section></section>
+            <%}%>
+            
+        <%}%>
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>
