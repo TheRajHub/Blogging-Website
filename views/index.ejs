@@ -38,13 +38,10 @@
                 <%var date=da.getDate();%>
                 <%var fd = `${date}-${month+1}-${year}`;%>
                 <%var image=(result[i].img).toString('base64') %>
-                <section class="cards"><div class="ig" style="background-image: url('data:image/*;base64,<%=image%>');" id="<%=result[i].id%>"></div><section><%=result[i].topic%></section><section class="date"><%=fd%></section></section>
+                <a href="/y?id=<%=result[i].id%>" class="cards" id="<%=result[i].id%>"><div class="ig" style="background-image: url('data:image/*;base64,<%=image%>');"></div><section><%=result[i].topic%></section><section class="date"><%=fd%></section></a>
             <%}%>
             
         <%}%>
     </div>
-    <script>
-
-    </script>
 </body>
 </html>

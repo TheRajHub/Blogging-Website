@@ -8,6 +8,7 @@ const _dirname=dirname(fileURLToPath(import.meta.url));
 app.use(upload());
 app.use(express.static(_dirname+"\\public"));
 app.use(express.urlencoded({extended:true}));
+app.set('view engine', 'ejs');
 const port=4000||process.env.PORT;
 const db=new pg.Client({
     user:"postgres",
@@ -17,7 +18,16 @@ const db=new pg.Client({
     port:5432
 });
 db.connect();
-
+app.get("/y",async(req,res)=>{
+    var id=req.query.id;
+    try{
+        var result=await db.query('SELECT * FROM BLOGS WHERE ID=$1',[id]);
+        res.render(_dirname+"\\views\\work.ejs",{result: result.rows[0]});
+    }
+    catch(err){
+        console.log(err);
+    }
+});
 app.get("/",async(req,res)=>{
     try{
         var result=await db.query("SELECT * FROM BLOGS;");
@@ -34,6 +44,7 @@ app.get("/",async(req,res)=>{
     }
     
 });
+
 app.get("/edit",(req,res)=>{
     res.render(_dirname+"\\views\\editor.ejs");
 });
@@ -47,7 +58,6 @@ app.post("/post",async(req,res)=>{
     var month=d.getMonth();
     var date=d.getDate();
     var fd = `${year}-${month+1}-${date}`;
-    console.log(fd);
     try{
         if(req.files){
             var file=req.files.photo.data;
