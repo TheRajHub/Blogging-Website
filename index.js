@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import path from 'path';
 import express from "express";
 import {dirname} from "path";
 import { fileURLToPath } from "url";
@@ -7,7 +8,7 @@ import upload from "express-fileupload";
 const app=express();
 const _dirname=dirname(fileURLToPath(import.meta.url));
 app.use(upload());
-app.use(express.static(_dirname+"\\public"));
+app.use(express.static(path.join(_dirname,'public')));
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 const port=process.env.PORT;
@@ -23,7 +24,7 @@ app.get("/y",async(req,res)=>{
     var id=req.query.id;
     try{
         var result=await db.query('SELECT * FROM BLOGS WHERE ID=$1',[id]);
-        res.render(_dirname+"\\views\\work.ejs",{result: result.rows[0]});
+        res.render(path.join(_dirname,'views','work.ejs'),{result: result.rows[0]});
     }
     catch(err){
         console.log(err);
@@ -33,10 +34,10 @@ app.get("/",async(req,res)=>{
     try{
         var result=await db.query("SELECT * FROM BLOGS;");
         if(result){
-            res.render(_dirname+"\\views\\index.ejs",{result:result.rows});
+            res.render(path.join(_dirname,'views','index.ejs'),{result:result.rows});
         }
         else{
-            res.render(_dirname+"\\views\\index.ejs");
+            res.render(path.join(_dirname,'views','index.ejs'));
         }
     }
     catch(err){
@@ -47,7 +48,7 @@ app.get("/",async(req,res)=>{
 });
 
 app.get("/edit",(req,res)=>{
-    res.render(_dirname+"\\views\\editor.ejs");
+    res.render(path.join(_dirname,'views','editor.ejs'));
 });
 app.post("/post",async(req,res)=>{
     var topic=req.body.head;
@@ -75,7 +76,7 @@ app.post("/post",async(req,res)=>{
     try{
         var result=await db.query("SELECT * FROM BLOGS WHERE BLOG=$1 AND TOPIC=$2",[blog,topic]);
         
-        res.render(_dirname+"\\views\\work.ejs",{result: result.rows[0]});
+        res.render(path.join(_dirname,'views','work.ejs'),{result: result.rows[0]});
     }
     catch(err){
         console.log("2nd err:");
