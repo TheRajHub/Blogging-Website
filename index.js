@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from "express";
 import {dirname} from "path";
 import { fileURLToPath } from "url";
@@ -9,13 +10,13 @@ app.use(upload());
 app.use(express.static(_dirname+"\\public"));
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
-const port=4000||process.env.PORT;
+const port=process.env.PORT;
 const db=new pg.Client({
-    user:"postgres",
-    host:"localhost",
-    database:"TEST",
-    password:"kaki12345",
-    port:5432
+    user:process.env.PGUSER,
+    host:process.env.PGHOST,
+    database:process.env.PGDATABASE,
+    password:process.env.PGPASSWORD,
+    port:process.env.PGPORT
 });
 db.connect();
 app.get("/y",async(req,res)=>{
