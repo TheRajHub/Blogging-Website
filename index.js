@@ -11,6 +11,8 @@ app.use(upload());
 app.use(express.static(path.join(_dirname,'public')));
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
+app.set('views', path.join(_dirname, 'views'));
+
 const port=process.env.PORT;
 const db=new pg.Client({
     user:process.env.PGUSER,
