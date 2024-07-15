@@ -37,8 +37,13 @@
                 <%var month=da.getMonth();%>
                 <%var date=da.getDate();%>
                 <%var fd = `${date}-${month+1}-${year}`;%>
+                <%if((result[i].img)!=null){%>
                 <%var image=(result[i].img).toString('base64') %>
                 <a href="/y?id=<%=result[i].id%>" class="cards" id="<%=result[i].id%>"><div class="ig" style="background-image: url('data:image/*;base64,<%=image%>');"></div><section><%=result[i].topic%></section><section class="date"><%=fd%></section></a>
+                <%}else{%>
+                    <a href="/y?id=<%=result[i].id%>" class="cards" id="<%=result[i].id%>"><div class="ig" style="background-color: rgb(255, 238, 232);"></div><section><%=result[i].topic%></section><section class="date"><%=fd%></section></a>
+                <%}%>
+                
             <%}%>
             
         <%}%>

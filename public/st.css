@@ -87,6 +87,7 @@ a{
     background-position: center;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    background-image: url('book.jpg');
 }
 .date{
     font-size: 0.7rem;

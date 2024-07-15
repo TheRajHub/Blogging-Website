@@ -15,8 +15,13 @@
     <%var month=da.getMonth();%>
     <%var date=da.getDate();%>
     <%var fd = `${date}-${month+1}-${year}`;%>
+    <%if((result.img)!=null){%>
     <%var image=(result.img).toString('base64') %>
-    <div id="pic" style="background-image: url('data:image/*;base64,<%=image%>');">
+    <div id="pic" style="background-image: url('data:image/*;base64,<%=image%>');"></div>
+    <%}else{%>
+    <div id="pic" style="background-color: rgb(197, 194, 194);"></div>
+    <%}%>
+    
 
     </div>
     <div class="blog">
